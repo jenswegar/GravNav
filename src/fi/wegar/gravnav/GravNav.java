@@ -42,6 +42,8 @@ public class GravNav extends Activity implements SensorEventListener {
 	 */
 	private float speedDelay;
 	
+	private int time = 0;
+	
 	static final int DIALOG_NO_ACCELEROMETER_ID = 0;
 	
 	/**
@@ -52,7 +54,7 @@ public class GravNav extends Activity implements SensorEventListener {
 	/**
 	 * The threshold at which the runner is considered stopped
 	 */
-	static final int STOP_THRESHOLD = 50;
+	static final int STOP_THRESHOLD = 100;
 	
 	/**
 	 * The nr of ms between each update of the shake calculations
@@ -69,7 +71,7 @@ public class GravNav extends Activity implements SensorEventListener {
         mTextDisplay = (TextView) findViewById(R.id.text_display);
         mArrowDisplay = (ArrowView) findViewById(R.id.arrow_display);
         
-        //mArrowDisplay.setShiftRadians( 3.0/4.0*2*Math.PI );
+        mArrowDisplay.setShiftRadians( 0.5*Math.PI );
         
         // check if accelerometer is available
         mSensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -216,13 +218,16 @@ public class GravNav extends Activity implements SensorEventListener {
 	
 	private void updateUI() {
 		
-		int dir = Math.round(speedDelay) % numChoices;
-		
 		// add 1 to numChoices to we account for the backwards direction in the arrow angles. The backwards arrow is not drawn on screen.
 		double stepSize = (360 / (numChoices+1) );
+
+		double angle = stepSize * (++time);
 		
-		// add 2 to the dir so center points upwards on display
-		double angle = stepSize * (dir+2);
+		// if angle would draw arrow south, add one more to time and recalculate
+		if( time == numChoices+1) {
+			time = 1;
+			angle = stepSize;
+		}
 		
 		mArrowDisplay.setAngle(angle);
 		
