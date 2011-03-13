@@ -52,7 +52,7 @@ public class GravNav extends Activity implements SensorEventListener {
 	/**
 	 * The threshold at which the runner is considered stopped
 	 */
-	static final int STOP_THRESHOLD = 100;
+	static final int STOP_THRESHOLD = 50;
 	
 	/**
 	 * The nr of ms between each update of the shake calculations
@@ -191,11 +191,24 @@ public class GravNav extends Activity implements SensorEventListener {
 					} else {
 						speedDelay = delta;
 						mRefreshHandler.removeCallbacks( mRunner );
-						mRefreshHandler.postDelayed(mRunner, UPDATE_FREQUENCY);
+						mRefreshHandler.postDelayed(mRunner, getNextUpdateDelay() );
 					}
 				}
 			}
 		}
+		
+	}
+	
+	/**
+	 * Calculate the number of ms to delay the next call to the runner
+	 * 
+	 * @return
+	 */
+	private long getNextUpdateDelay() {
+		
+		long delay = Math.round( 1 / speedDelay * 60000 );
+		
+		return delay;
 		
 	}
 	
@@ -223,7 +236,7 @@ public class GravNav extends Activity implements SensorEventListener {
 				
 				updateUI();
 				
-				mRefreshHandler.postDelayed(this, UPDATE_FREQUENCY);
+				mRefreshHandler.postDelayed(this, getNextUpdateDelay() );
 			}
 			else
 			{
