@@ -69,6 +69,8 @@ public class GravNav extends Activity implements SensorEventListener {
         mTextDisplay = (TextView) findViewById(R.id.text_display);
         mArrowDisplay = (ArrowView) findViewById(R.id.arrow_display);
         
+        //mArrowDisplay.setShiftRadians( 3.0/4.0*2*Math.PI );
+        
         // check if accelerometer is available
         mSensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -215,10 +217,13 @@ public class GravNav extends Activity implements SensorEventListener {
 	private void updateUI() {
 		
 		int dir = Math.round(speedDelay) % numChoices;
-		String dirText = "";
 		
+		// add 1 to numChoices to we account for the backwards direction in the arrow angles. The backwards arrow is not drawn on screen.
 		double stepSize = (360 / (numChoices+1) );
-		double angle = stepSize * dir + 180;
+		
+		// add 2 to the dir so center points upwards on display
+		double angle = stepSize * (dir+2);
+		
 		mArrowDisplay.setAngle(angle);
 		
 		mTextDisplay.setText( " "+speedDelay+", dir : "+angle );
