@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-    
+    android:layout_height="fill_parent">
+
 	<TextView android:id="@+id/text_display"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Shake activity" />
+		android:text="Shake it baby!"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true" />
 	<view class="fi.wegar.gravnav.view.ArrowView"
 		android:id="@+id/arrow_display"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:minHeight="100px"
+		android:layout_below="@id/text_display"/>
+	<SeekBar android:id="@+id/numchoice_seekbar"
 		android:layout_width="fill_parent"
-		android:layout_height="fill_parent" />
-</LinearLayout>
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true" />
+		/>
+</RelativeLayout>

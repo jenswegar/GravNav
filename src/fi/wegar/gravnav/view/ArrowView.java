@@ -111,7 +111,7 @@ public class ArrowView extends View {
 	}
 	
 	/**
-	 * Determine height of the view
+	 * Determine width and height of the view
 	 */
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
