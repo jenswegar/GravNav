@@ -57,12 +57,12 @@ public class GravNav extends Activity implements SensorEventListener {
 	/**
 	 * The delta threshold at which the activity decides that a shake has taken place.
 	 */
-	static final int SHAKE_THRESHOLD = 800;
+	static final int SHAKE_THRESHOLD = 700;
 	
 	/**
 	 * The threshold at which the runner is considered stopped
 	 */
-	static final int STOP_THRESHOLD = 100;
+	static final int STOP_THRESHOLD = 150;
 	
 	/**
 	 * The nr of ms between each update of the shake calculations
