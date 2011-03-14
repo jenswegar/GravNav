@@ -1,6 +1,5 @@
 package fi.wegar.gravnav;
 
-import fi.wegar.gravnav.view.ArrowView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +12,11 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+import fi.wegar.gravnav.view.ArrowView;
 
 public class GravNav extends Activity implements SensorEventListener {
 	
@@ -27,6 +30,11 @@ public class GravNav extends Activity implements SensorEventListener {
 	
 	private TextView mTextDisplay;
 	private ArrowView mArrowDisplay;
+	
+	private ImageButton mIncrementButton;
+	private ImageButton mDecrementButton;
+	
+	private Toast mNumChoiceChangeMsg;
 	
 	private long lastUpdate = -1;
 	// hold the last known values of the accelerometer for the next update
@@ -70,8 +78,33 @@ public class GravNav extends Activity implements SensorEventListener {
         
         mTextDisplay = (TextView) findViewById(R.id.text_display);
         mArrowDisplay = (ArrowView) findViewById(R.id.arrow_display);
-        
+
         mArrowDisplay.setShiftRadians( 0.5*Math.PI );
+        
+        mIncrementButton = (ImageButton) findViewById(R.id.increment_button);
+        mDecrementButton = (ImageButton) findViewById(R.id.decrement_button);
+        
+        mNumChoiceChangeMsg = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
+        
+        // attach listeners to the buttons
+        mIncrementButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+            	setNumChoices( getNumChoices()+1 );
+            	mNumChoiceChangeMsg.setText(getString(R.string.toast_num_choices_set) + " "+getNumChoices() );
+            	mNumChoiceChangeMsg.show();
+            }
+
+        });
+        
+        mDecrementButton.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View view) {
+        		setNumChoices( getNumChoices()-1 );
+        		mNumChoiceChangeMsg.setText(getString(R.string.toast_num_choices_set) + " "+getNumChoices() );
+        		mNumChoiceChangeMsg.show();
+        	}
+        	
+        });
+        
         
         // check if accelerometer is available
         mSensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -204,6 +237,24 @@ public class GravNav extends Activity implements SensorEventListener {
 	}
 	
 	/**
+	 * @param numChoices the numChoices to set
+	 */
+	public void setNumChoices(int numChoices) {
+		
+		// make sure there are always at least two choices (otherwise, what's the point)
+		numChoices = (numChoices < 2) ? 2 : numChoices;
+		
+		this.numChoices = numChoices;
+	}
+
+	/**
+	 * @return the numChoices
+	 */
+	public int getNumChoices() {
+		return numChoices;
+	}	
+	
+	/**
 	 * Calculate the number of ms to delay the next call to the runner
 	 * 
 	 * @return
@@ -219,12 +270,12 @@ public class GravNav extends Activity implements SensorEventListener {
 	private void updateUI() {
 		
 		// add 1 to numChoices to we account for the backwards direction in the arrow angles. The backwards arrow is not drawn on screen.
-		double stepSize = (360 / (numChoices+1) );
+		double stepSize = (360 / (getNumChoices()+1) );
 
 		double angle = stepSize * (++time);
 		
 		// if angle would draw arrow south, add one more to time and recalculate
-		if( time == numChoices+1) {
+		if( time == getNumChoices()+1) {
 			time = 1;
 			angle = stepSize;
 		}

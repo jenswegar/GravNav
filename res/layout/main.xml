@@ -7,7 +7,7 @@
 	<TextView android:id="@+id/text_display"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Shake it baby!"
+		android:textSize="30px"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true" />
 	<view class="fi.wegar.gravnav.view.ArrowView"
@@ -16,10 +16,34 @@
 		android:layout_height="wrap_content"
 		android:minHeight="100px"
 		android:layout_below="@id/text_display"/>
-	<SeekBar android:id="@+id/numchoice_seekbar"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true"
-		android:layout_centerHorizontal="true" />
-		/>
+	
+	
+	<LinearLayout android:id="@+id/numchoice_controls"
+					android:orientation="horizontal"
+					android:layout_alignParentBottom="true"
+					android:layout_centerInParent="true"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content">
+		
+		<ImageButton android:id="@+id/decrement_button" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/arrow_down"
+				android:layout_weight="0.2" />
+		
+		<TextView android:id="@+id/numchoices_display"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/set_num_choices"
+			android:textSize="15px"
+			android:layout_weight="0.6"
+			android:layout_gravity="center" />
+		
+		<ImageButton android:id="@+id/increment_button" 
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/arrow_up"
+				android:layout_weight="0.2" />
+	</LinearLayout>
+	
 </RelativeLayout>

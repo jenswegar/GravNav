@@ -2,4 +2,6 @@
 <resources>
     <string name="accelerometer_not_supported">Your device does not seem to support an accelerometer, which this application requires to function as intended.</string>
     <string name="app_name">Grav Nav</string>
+    <string name="set_num_choices">Set number of choices</string>
+    <string name="toast_num_choices_set">Number of choices set to </string>
 </resources>
