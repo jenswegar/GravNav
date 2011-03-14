@@ -4,4 +4,9 @@
     <string name="app_name">Grav Nav</string>
     <string name="set_num_choices">Set number of choices</string>
     <string name="toast_num_choices_set">Number of choices set to </string>
+    <string name="go">Go</string>
+    <string name="left">left</string>
+    <string name="right">right</string>
+    <string name="straight">straight</string>
+    <string name="to_your">to your</string>
 </resources>

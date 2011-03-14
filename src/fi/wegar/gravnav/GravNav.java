@@ -221,6 +221,9 @@ public class GravNav extends Activity implements SensorEventListener {
 				
 				if (delta > SHAKE_THRESHOLD) {
 				    // this is a shake action
+
+					// clear the text result display
+					mTextDisplay.setText( "" );
 					
 					if(speedDelay > STOP_THRESHOLD) {
 						// the runner has not been allowed to stop (assuming the user is still shaking the device), so just add to the speed
@@ -282,7 +285,6 @@ public class GravNav extends Activity implements SensorEventListener {
 		
 		mArrowDisplay.setAngle(angle);
 		
-		mTextDisplay.setText( " "+speedDelay+", dir : "+angle );
 	}
 	
 	class RefreshRunner implements Runnable {
@@ -301,6 +303,9 @@ public class GravNav extends Activity implements SensorEventListener {
 			}
 			else
 			{
+				// set the direction text
+				mTextDisplay.setText( DirectionToTextConverter.getText(time, numChoices) );
+				
 				mRefreshHandler.removeCallbacks(this);
 			}
 		}
