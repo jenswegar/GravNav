@@ -15,7 +15,6 @@ import android.os.PowerManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import fi.wegar.gravnav.view.ArrowView;
 
 public class GravNav extends Activity implements SensorEventListener {
@@ -29,12 +28,11 @@ public class GravNav extends Activity implements SensorEventListener {
 	private PowerManager.WakeLock wakeLock;
 	
 	private TextView mTextDisplay;
+	private TextView mNumChoicesDisplay;
 	private ArrowView mArrowDisplay;
 	
 	private ImageButton mIncrementButton;
 	private ImageButton mDecrementButton;
-	
-	private Toast mNumChoiceChangeMsg;
 	
 	private long lastUpdate = -1;
 	// hold the last known values of the accelerometer for the next update
@@ -77,21 +75,21 @@ public class GravNav extends Activity implements SensorEventListener {
         setContentView(R.layout.main);
         
         mTextDisplay = (TextView) findViewById(R.id.text_display);
-        mArrowDisplay = (ArrowView) findViewById(R.id.arrow_display);
+        
+        mNumChoicesDisplay = (TextView) findViewById(R.id.numchoices_display);
+        mNumChoicesDisplay.setText( ""+getNumChoices() );
 
+        mArrowDisplay = (ArrowView) findViewById(R.id.arrow_display);
         mArrowDisplay.setShiftRadians( 0.5*Math.PI );
         
         mIncrementButton = (ImageButton) findViewById(R.id.increment_button);
         mDecrementButton = (ImageButton) findViewById(R.id.decrement_button);
         
-        mNumChoiceChangeMsg = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
-        
         // attach listeners to the buttons
         mIncrementButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
             	setNumChoices( getNumChoices()+1 );
-            	mNumChoiceChangeMsg.setText(getString(R.string.toast_num_choices_set) + " "+getNumChoices() );
-            	mNumChoiceChangeMsg.show();
+            	mNumChoicesDisplay.setText( ""+getNumChoices() );
             }
 
         });
@@ -99,8 +97,7 @@ public class GravNav extends Activity implements SensorEventListener {
         mDecrementButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View view) {
         		setNumChoices( getNumChoices()-1 );
-        		mNumChoiceChangeMsg.setText(getString(R.string.toast_num_choices_set) + " "+getNumChoices() );
-        		mNumChoiceChangeMsg.show();
+        		mNumChoicesDisplay.setText( ""+getNumChoices() );
         	}
         	
         });
