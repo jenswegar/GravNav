@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import fi.wegar.gravnav.view.ArrowView;
+import fi.wegar.gravnav.view.SpokeView;
 
 public class GravNav extends Activity implements SensorEventListener {
 	
@@ -30,6 +31,7 @@ public class GravNav extends Activity implements SensorEventListener {
 	private TextView mTextDisplay;
 	private TextView mNumChoicesDisplay;
 	private ArrowView mArrowDisplay;
+	private SpokeView mSpokeDisplay;
 	
 	private ImageButton mIncrementButton;
 	private ImageButton mDecrementButton;
@@ -82,6 +84,13 @@ public class GravNav extends Activity implements SensorEventListener {
         mArrowDisplay = (ArrowView) findViewById(R.id.arrow_display);
         mArrowDisplay.setShiftRadians( 0.5*Math.PI );
         
+        mSpokeDisplay = (SpokeView) findViewById(R.id.spokes_display);
+        mSpokeDisplay.setShiftRadians( 0.5*Math.PI );
+        mSpokeDisplay.setColor(0xff909090);
+        mSpokeDisplay.setNumSpokes(numChoices+1);
+        mSpokeDisplay.setDrawFromSpoke(1);
+        
+        
         mIncrementButton = (ImageButton) findViewById(R.id.increment_button);
         mDecrementButton = (ImageButton) findViewById(R.id.decrement_button);
         
@@ -89,6 +98,7 @@ public class GravNav extends Activity implements SensorEventListener {
         mIncrementButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
             	setNumChoices( getNumChoices()+1 );
+            	mSpokeDisplay.setNumSpokes(getNumChoices()+1);
             	mNumChoicesDisplay.setText( ""+getNumChoices() );
             }
 
@@ -97,6 +107,7 @@ public class GravNav extends Activity implements SensorEventListener {
         mDecrementButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View view) {
         		setNumChoices( getNumChoices()-1 );
+        		mSpokeDisplay.setNumSpokes(getNumChoices()+1);
         		mNumChoicesDisplay.setText( ""+getNumChoices() );
         	}
         	

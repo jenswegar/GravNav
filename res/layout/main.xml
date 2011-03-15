@@ -10,12 +10,23 @@
 		android:textSize="30px"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true" />
-	<view class="fi.wegar.gravnav.view.ArrowView"
-		android:id="@+id/arrow_display"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:minHeight="100px"
-		android:layout_below="@id/text_display"/>
+	
+	<FrameLayout android:id="@+id/arrow_group"
+		android:layout_below="@id/text_display"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+		
+		<view class="fi.wegar.gravnav.view.SpokeView"
+			android:id="@+id/spokes_display"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+		
+		<view class="fi.wegar.gravnav.view.ArrowView"
+			android:id="@+id/arrow_display"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</FrameLayout>	
+		
 	
 	
 	<RelativeLayout android:id="@+id/numchoice_controls"
