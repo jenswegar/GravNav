@@ -286,7 +286,7 @@ public class GravNav extends Activity implements SensorEventListener {
 		double angle = stepSize * (++time);
 		
 		// if angle would draw arrow south, add one more to time and recalculate
-		if( time == getNumChoices()+1) {
+		if( time >= getNumChoices()+1) {
 			time = 1;
 			angle = stepSize;
 		}
