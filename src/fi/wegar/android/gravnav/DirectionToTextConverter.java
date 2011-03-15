@@ -3,7 +3,7 @@
  */
 package fi.wegar.android.gravnav;
 
-import fi.wegar.gravnav.R;
+import fi.wegar.android.gravnav.R;
 import android.content.Context;
 
 /**

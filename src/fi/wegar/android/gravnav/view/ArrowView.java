@@ -8,7 +8,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
-import fi.wegar.gravnav.R;
+import fi.wegar.android.gravnav.R;
 
 public class ArrowView extends View {
 	

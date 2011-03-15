@@ -15,9 +15,9 @@ import android.os.PowerManager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import fi.wegar.android.gravnav.R;
 import fi.wegar.android.gravnav.view.ArrowView;
 import fi.wegar.android.gravnav.view.SpokeView;
-import fi.wegar.gravnav.R;
 
 public class GravNav extends Activity implements SensorEventListener {
 	
