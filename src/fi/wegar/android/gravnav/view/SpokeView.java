@@ -1,4 +1,4 @@
-package fi.wegar.gravnav.view;
+package fi.wegar.android.gravnav.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

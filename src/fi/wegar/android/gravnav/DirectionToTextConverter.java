@@ -1,8 +1,9 @@
 /**
  * 
  */
-package fi.wegar.gravnav;
+package fi.wegar.android.gravnav;
 
+import fi.wegar.gravnav.R;
 import android.content.Context;
 
 /**
