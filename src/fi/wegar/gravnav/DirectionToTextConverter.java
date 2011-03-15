@@ -3,9 +3,7 @@
  */
 package fi.wegar.gravnav;
 
-import android.R;
-import android.app.Application;
-import android.content.res.Resources;
+import android.content.Context;
 
 /**
  * Generates a text from a given direction integer, telling the user which direction to go. Integers must range from 1 to X
@@ -19,24 +17,26 @@ public class DirectionToTextConverter {
 	static final String SECOND = "nd";
 	static final String THIRD = "rd";
 	static final String N_TH = "th";
-		
+
+	
 	/**
 	 * 
 	 * @param dir
 	 * @param numChoices
+	 * @param ctx The context of the application, used for generating the return string.
 	 * @return A String representing the direction to travel, e.g. 4th choice from the left
 	 */
-	public static String getText(int dir, int numChoices) {
+	public static String getText(int dir, int numChoices, Context ctx) {
 		
-		String rtnStr = "Go ";
+		String rtnStr = ctx.getResources().getString(R.string.go)+" ";
 		
 		
 		if( numChoices == 2 ) {
 			// special case, we'll use a switch to tell where to go
-			rtnStr += getChoiceFromTwo(dir);
+			rtnStr += getChoiceFromTwo(dir, ctx);
 		} else if(numChoices == 3){
 			// special case, we'll use a switch to tell where to go
-			rtnStr += getChoiceFromThree(dir);
+			rtnStr += getChoiceFromThree(dir, ctx);
 		} else {
 			// need to calculate the center
 			
@@ -45,23 +45,23 @@ public class DirectionToTextConverter {
 			int center = (int) Math.floor(numChoices / 2) + 1;
 			
 			// check if dir is below or above center, determines left or right direction
-			leftRightCenter = (center > dir) ? "left" : "right";
+			leftRightCenter = (center > dir) ? ctx.getResources().getString(R.string.left) : ctx.getResources().getString(R.string.right);
 
 			
 			
 			if(numChoices % 2 > 0 && dir == center) {
 				// the center direction was chosen
-				leftRightCenter = "straight";
+				leftRightCenter = ctx.getResources().getString(R.string.straight);
 			} else {
 				
 				int tmpDir = dir;
 				
-				if(dir > center) {
+				if(dir >= center) {
 					// we're on the right side of straight, so need to invert the tmpDir
 					tmpDir = (numChoices+1) - dir;
 				}
 				
-				leftRightCenter = getDirSuffix( tmpDir )+" to your "+leftRightCenter;
+				leftRightCenter = getDirSuffix( tmpDir, ctx )+" "+ctx.getResources().getString(R.string.to_your)+" "+leftRightCenter;
 			}
 
 			rtnStr += leftRightCenter;
@@ -77,21 +77,21 @@ public class DirectionToTextConverter {
 	 * @param order
 	 * @return
 	 */
-	private static String getDirSuffix(int order) {
+	private static String getDirSuffix(int order, Context ctx) {
 		String rtnStr = ""+order;
 		
 		switch(order) {
 			case 1:
-				rtnStr += FIRST;
+				rtnStr += ctx.getResources().getString(R.string.first_short);
 				break;
 			case 2:
-				rtnStr += SECOND;
+				rtnStr += ctx.getResources().getString(R.string.second_short);
 				break;
 			case 3:
-				rtnStr += THIRD;
+				rtnStr += ctx.getResources().getString(R.string.third_short);
 				break;
 			default:
-				rtnStr += N_TH;
+				rtnStr += ctx.getResources().getString(R.string.nth_short);
 				break;
 			}
 		
@@ -99,35 +99,35 @@ public class DirectionToTextConverter {
 	}
 
 
-	private static String getChoiceFromThree(int dir) {
+	private static String getChoiceFromThree(int dir, Context ctx) {
 		
 		String rtnStr = "";
 		
 		switch(dir) {
 			case 1:
-				rtnStr = "left";
+				rtnStr = ctx.getResources().getString(R.string.left);
 				break;
 			case 2:
-				rtnStr = "straight";
+				rtnStr = ctx.getResources().getString(R.string.straight);
 				break;
 			case 3:
-				rtnStr = "right";
+				rtnStr = ctx.getResources().getString(R.string.right);
 				break;
 		}
 		
 		return rtnStr;
 	}
 	
-	private static String getChoiceFromTwo(int dir) {
+	private static String getChoiceFromTwo(int dir, Context ctx) {
 		
 		String rtnStr = "";
 		
 		switch(dir) {
 		case 1:
-			rtnStr = "left";
+			rtnStr = ctx.getResources().getString(R.string.left);
 			break;
 		case 2:
-			rtnStr = "right";
+			rtnStr = ctx.getResources().getString(R.string.right);
 			break;
 		}
 		

@@ -9,4 +9,9 @@
     <string name="right">right</string>
     <string name="straight">straight</string>
     <string name="to_your">to your</string>
+    <string name="shake_me">Shake me!</string>
+    <string name="first_short">st</string>
+    <string name="second_short">nd</string>
+    <string name="third_short">rd</string>
+    <string name="nth_short">th</string>
 </resources>

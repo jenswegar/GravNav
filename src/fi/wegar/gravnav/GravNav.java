@@ -77,6 +77,7 @@ public class GravNav extends Activity implements SensorEventListener {
         setContentView(R.layout.main);
         
         mTextDisplay = (TextView) findViewById(R.id.text_display);
+        mTextDisplay.setText(R.string.shake_me);
         
         mNumChoicesDisplay = (TextView) findViewById(R.id.numchoices_display);
         mNumChoicesDisplay.setText( ""+getNumChoices() );
@@ -312,7 +313,7 @@ public class GravNav extends Activity implements SensorEventListener {
 			else
 			{
 				// set the direction text
-				mTextDisplay.setText( DirectionToTextConverter.getText(time, numChoices) );
+				mTextDisplay.setText( DirectionToTextConverter.getText(time, numChoices, GravNav.this.getApplicationContext() ) );
 				
 				mRefreshHandler.removeCallbacks(this);
 			}

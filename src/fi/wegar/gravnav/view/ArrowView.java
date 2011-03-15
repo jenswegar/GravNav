@@ -151,10 +151,10 @@ public class ArrowView extends View {
 		// need to add rotation of +90 to arrow graphic as it is painted north by default
 		mRotate.setRotate( (float) getAngleShifted()+90, (float) (arrowhead.getWidth()*0.5), arrowhead.getHeight());
 		mRotate.postTranslate( (float)(arrowCenterX+arrowX), (float)(arrowCenterY+arrowY) );
-		
-		
-		
 		canvas.drawBitmap(arrowhead, mRotate, null);
+		
+		// draw a circle on top of the arrow base
+		canvas.drawCircle( (float) centerX, (float) centerY, 7, color);
 		
 	}
 }
